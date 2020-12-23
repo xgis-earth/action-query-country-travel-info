@@ -1,4 +1,4 @@
-# 2019-nCoV Query Country Travel
+# Country Travel Information
 
 Hasura query action handler for reading country travel information.
 

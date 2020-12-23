@@ -1,6 +1,6 @@
 # 2019-nCoV Query Country Travel
 
-Hasura query action handler for reading country travel.
+Hasura query action handler for reading country travel information.
 
 ## Development Environment
 

@@ -1,0 +1,6 @@
+/**/*.swp
+/**/.git/
+/**/.idea/
+/**/__pycache__/
+/**/set_env.bat
+/**/venv/

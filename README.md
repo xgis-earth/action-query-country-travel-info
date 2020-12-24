@@ -1,21 +1,50 @@
 # Country Travel Information
 
+[![Build Status](https://cloud.drone.io/api/badges/xgis-earth/action-query-country-travel-info/status.svg)](https://cloud.drone.io/xgis-earth/action-query-country-travel-info)
+
 Hasura query action handler for reading country travel information.
 
 ## Development Environment
-
-A batch file to set environment variables, named `set_env.bat`, can be useful.
-
-```
-@ECHO OFF
-SET COVID_DB_HOST=<host>
-SET COVID_DB_NAME=<db-name>
-SET COVID_DB_USER=<db-user>
-SET COVID_DB_PASS=<password>
-```
 
 ### Run Example
 
 ```bash
 uvicorn main:app --reload --no-use-colors
 ```
+
+## Deployment Configuration
+
+### Action Definition
+
+#### Query
+
+```graphql
+type Query {
+  country_travel_info (
+    country_code: String!
+  ): TravelInfo!
+}
+```
+
+#### New Types
+
+```graphql
+type AirlineInfo {
+  name: String!
+  info: String!
+  source: String!
+  published: timestamptz!
+}
+
+type TravelInfo {
+  info: String!
+  restrictions: String!
+  sources: [String!]
+  published: timestamptz!
+  airlines: [AirlineInfo]
+}
+```
+
+#### Handler
+
+http://query-country-travel-info/info

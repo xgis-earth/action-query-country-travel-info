@@ -1,27 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: query-country-news
+  name: query-country-travel-info
   namespace: covid
 spec:
   selector:
     matchLabels:
-      run: query-country-news
+      run: query-country-travel-info
   replicas: 1
   revisionHistoryLimit: 1
   template:
     metadata:
       labels:
-        run: query-country-news
+        run: query-country-travel-info
     spec:
       containers:
-      - name: query-country-news
-        image: xgis/action-query-country-news
+      - name: query-country-travel-info
+        image: xgis/action-query-country-travel-info
         ports:
         - containerPort: 80
-        env:
-        - name: MEDIASTACK_API_KEY
-          valueFrom:
-            secretKeyRef:
-              name: api-keys
-              key: mediastack

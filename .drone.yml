@@ -6,7 +6,7 @@ steps:
   - name: publish
     image: plugins/docker
     settings:
-      repo: xgis/action-query-country-news
+      repo: xgis/action-query-country-travel-info
       tags: [ "${DRONE_COMMIT_SHA:0:7}", "latest" ]
       username:
         from_secret: docker_username
@@ -23,4 +23,4 @@ steps:
         from_secret: k8s_token
     commands:
       - kubectl -n=covid apply -f deployment.yaml
-      - kubectl -n=covid patch deployment query-country-news -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"date\":\"`date +'%s'`\"}}}}}"
+      - kubectl -n=covid patch deployment query-country-travel-info -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"date\":\"`date +'%s'`\"}}}}}"

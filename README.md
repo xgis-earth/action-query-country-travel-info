@@ -29,19 +29,11 @@ type Query {
 #### New Types
 
 ```graphql
-type AirlineInfo {
-  name: String!
-  info: String!
-  source: String!
-  published: timestamptz!
-}
-
 type TravelInfo {
   info: String!
   restrictions: String!
   sources: [String!]
   published: timestamptz!
-  airlines: [AirlineInfo]
 }
 ```
 

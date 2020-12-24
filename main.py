@@ -15,7 +15,6 @@ import json
 
 base_url = "https://services3.arcgis.com/t6lYS2Pmd8iVx1fy/ArcGIS/rest/services/"
 travel_url = f"{base_url}COVID_Travel_Restrictions_V2/FeatureServer/0/query"
-airline_url = f"{base_url}COVID_Airline_Information_V2/FeatureServer/0/query"
 
 alpha3_lookup = {
     "AF": "AFG",
@@ -292,19 +291,11 @@ class Args(BaseModel):
     action: Action
 
 
-class AirlineInfo(BaseModel):
-    name: str
-    info: str
-    source: str
-    published: datetime
-
-
 class TravelInfo(BaseModel):
     info: str
     restrictions: str
     sources: List[str]
     published: datetime
-    airlines: Optional[List[AirlineInfo]]
 
 
 # FastAPI
@@ -356,35 +347,11 @@ async def handle_info_request(args: Args, response: Response) -> Optional[Travel
         published = datetime.strptime(attributes["published"], '%d.%m.%Y')
         break  # Done looping - only one item for country code here.
 
-    r = requests.post(airline_url, data={
-        "f": "json",
-        "where": "1=1",
-        "outFields": "*"
-    })
-
-    r.raise_for_status()
-    json_response = json.loads(r.text)
-
-    airlines = []
-
-    for item in json_response["features"]:
-        attributes = item["attributes"]
-        if attributes["iso3"] != alpha3:
-            continue
-
-        airlines.append(AirlineInfo(
-            name=attributes["airline"],
-            info=attributes["info"],
-            source=attributes["source"],
-            published=datetime.strptime(attributes["published"], '%d.%m.%Y')
-        ))
-
     result = TravelInfo(
         info=info,
         restrictions=restrictions,
         sources=sources,
-        published=published,
-        airlines=airlines
+        published=published
     )
 
     return result

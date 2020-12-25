@@ -295,7 +295,7 @@ class Args(BaseModel):
 class TravelInfo(BaseModel):
     info: str
     restrictions: str
-    sources: List[str]
+    sources: str
     published: datetime
 
 
@@ -343,12 +343,21 @@ async def handle_info_request(args: Args, response: Response) -> Optional[Travel
             continue
 
         info = attributes["info"]
+        info = info.replace("\n", "<br>")
         info = info.replace("• ", "<br><li>")
         info = markdownify(info)
+
         restrictions = attributes["optional2"]
+        restrictions = restrictions.replace("\n", "<br>")
         restrictions = markdownify(restrictions)
-        sources = [s.strip() for s in str(attributes["sources"]).split('\n')]
+
+        # sources = [s.strip() for s in str(attributes["sources"]).split('\n')]
+        sources = attributes["sources"]
+        sources = sources.replace("\n", "<br>")
+        sources = markdownify(sources)
+
         published = datetime.strptime(attributes["published"], '%d.%m.%Y')
+
         break  # Done looping - only one item for country code here.
 
     result = TravelInfo(

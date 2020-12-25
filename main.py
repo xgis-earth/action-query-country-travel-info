@@ -342,8 +342,11 @@ async def handle_info_request(args: Args, response: Response) -> Optional[Travel
         if attributes["iso3"] != alpha3:
             continue
 
-        info = markdownify(attributes["info"])
-        restrictions = markdownify(attributes["optional2"])
+        info = attributes["info"]
+        info = info.replace("• ", "<br><li>")
+        info = markdownify(info)
+        restrictions = attributes["optional2"]
+        restrictions = markdownify(restrictions)
         sources = [s.strip() for s in str(attributes["sources"]).split('\n')]
         published = datetime.strptime(attributes["published"], '%d.%m.%Y')
         break  # Done looping - only one item for country code here.

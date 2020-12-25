@@ -32,7 +32,7 @@ type Query {
 type TravelInfo {
   info: String!
   restrictions: String!
-  sources: [String!]
+  sources : String!
   published: timestamptz!
 }
 ```

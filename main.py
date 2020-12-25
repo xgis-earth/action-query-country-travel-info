@@ -6,6 +6,7 @@ from typing import List, Optional
 from pydantic import BaseModel, Field
 from uuid import UUID
 from datetime import datetime
+from markdownify import markdownify
 import requests
 import json
 
@@ -341,8 +342,8 @@ async def handle_info_request(args: Args, response: Response) -> Optional[Travel
         if attributes["iso3"] != alpha3:
             continue
 
-        info = attributes["info"]
-        restrictions = attributes["optional2"]
+        info = markdownify(attributes["info"])
+        restrictions = markdownify(attributes["optional2"])
         sources = [s.strip() for s in str(attributes["sources"]).split('\n')]
         published = datetime.strptime(attributes["published"], '%d.%m.%Y')
         break  # Done looping - only one item for country code here.

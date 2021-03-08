@@ -1,6 +1,6 @@
 # Country Travel Information
 
-[![Build Status](https://drone.tiepy.com/api/badges/xgis-earth/action-query-country-travel-info/status.svg)](https://drone.tiepy.com/xgis-earth/action-query-country-travel-info)
+[![Build Status](https://drone.tiepy.dev/api/badges/xgis-earth/action-query-country-travel-info/status.svg)](https://drone.tiepy.dev/xgis-earth/action-query-country-travel-info)
 
 Hasura query action handler for reading country travel information.
 
